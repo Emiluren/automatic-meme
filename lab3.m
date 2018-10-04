@@ -64,3 +64,24 @@ error = abs(fnval(pn, xx) - fun(xx));
 first = error(2)
 mid = error(round(length(error)/2) + 1)
 last = error(length(error)-1)
+
+%% 4.1/4.2
+
+emilsThumbConstant = 0.2;
+
+x = [0, 0.6, 0.8, 0.5, 0.2, 0.4, 1];
+y = [0.5, 0.5, 2.5, 4, 5.5, 7.5, 7.5] .* emilsThumbConstant;
+pnx = csape(1:7, x, 'variational');
+pny = csape(1:7, y, 'variational');
+
+tt = 1:0.1:7;
+
+hold off;
+plot(fnval(pnx, tt), fnval(pny, tt), x, y, '*'), axis equal
+hold on;
+
+%% 4.3
+pnx = csape(1:7, x, 'complete', [0.8, 0.8]);
+pny = csape(1:7, y, 'complete', [-0.3, -0.3]);
+
+plot(fnval(pnx, tt), fnval(pny, tt), x, y, '*'), axis equal
