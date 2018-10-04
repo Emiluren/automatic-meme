@@ -53,5 +53,14 @@ for pow = 0:2
     last = error(length(error)-1)
 end
 
-%% 3.6
+%% 3.9
     
+h = 0.005;
+x = a:h:b;
+y = fun(x);
+xx = a:h/2:b;
+pn = csape(x, y, 'variational');
+error = abs(fnval(pn, xx) - fun(xx));
+first = error(2)
+mid = error(round(length(error)/2) + 1)
+last = error(length(error)-1)
