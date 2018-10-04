@@ -33,4 +33,25 @@ b = 1;
 pn = csape(x,y,'variational');
 pr = csape(x,y,'complete',[fprim(a),fprim(b)]);
 
-plot(xx,fnval(pn,xx),xx,fnval(pr,xx),x,y,'o')
+%plot(xx,fnval(pn,xx),xx,fnval(pr,xx),x,y,'o')
+plot(xx, abs(fnval(pn, xx) - fun(xx)));
+
+%% 3.4
+
+format short e;
+for pow = 0:2
+    pow
+    n = 10*2^pow;
+    h = (b-a)/n;
+    x = a:h:b;
+    y = fun(x);
+    xx = a:h/2:b;
+    pn = csape(x, y, 'variational');
+    error = abs(fnval(pn, xx) - fun(xx));
+    first = error(2)
+    mid = error(round(length(error)/2) + 1)
+    last = error(length(error)-1)
+end
+
+%% 3.6
+    
