@@ -58,3 +58,29 @@ for Ki = [0.01, 0.05, 0.125]
 end
 
 plot(t(2:180) - t(1:179))
+
+%% 4.1
+
+format short e
+Kp = 0.1;
+Ki = 0.001;
+h = 0.5;
+alpha = myeuler(@odefun, 0, h, v0, h);
+x05 = myrungekutta(@odefun, 0, h, v0, h);
+h = h/2;
+beta  = myeuler(@odefun, 0, h, v0, h);
+x025 = myrungekutta(@odefun, 0, h, v0, h);
+
+C2h = abs(alpha - x05);
+Ch = abs(beta - x025);
+
+p = log2(C2h(1) / Ch(1));
+
+%% 4.3
+h = 2;
+alpha = myeuler(@odefun, 0, 100, v0, h);
+beta = myeuler(@odefun, 0, 100, v0, h/2);
+gamma = myeuler(@odefun, 0, 100, v0, h/4);
+
+
+

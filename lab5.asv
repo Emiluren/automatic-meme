@@ -1,0 +1,22 @@
+%% Task 2.1
+
+fun = @(x) x^2 -2;
+
+roots([1 0 -2])
+fzero(fun, [-2 0])
+fzero(fun, [0 2])
+
+%% task 3.1
+
+x5 = -1:0.1:1;
+x = x5;
+
+x5.^5;
+x + 1;
+plot(x5);
+hold on
+plot(x);
+hold off
+
+%% task 5
+
