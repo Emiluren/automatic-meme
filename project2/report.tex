@@ -22,10 +22,18 @@ Sekantmetoden används för att ta fram approximationer av rötter till en given
 
 Den skiljer sig således från Newton Raphsons metod, en annan vanlig iterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje iterationssteg. Då bägge metoder är iterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet.
 
-\section{Lösning}
-(experimentbeskrivning),
+Specifikt gäller att sekantmetoden utgör en talserie givet en funktion $f$ och två startvärden $n_{0}, n_{1}$ (lämpligen placerade nära den önskade roten): 
 
-\section{Resultat och svar}
+$ n_{i} = n_{i-1} - \frac{n_{i-1} - n_{i-2}}{f(n_{i-1}) - f(n_{i-2})} \cdot f(n_{i-1}), i = 2, 3, ...$
+
+Där $n_{i}$ är en allt bättre approximation för högre värden på $i$. För implementation av metoden införs sedan ett slutvilkor att $|n_{i} - n_{i-1}| < E$, för någon övre feltolerans $E$.
+
+\section{Lösning}
+För att analysera sekantmetoden implementerades den rekursivt i Matlab; koden för detta redovisas under avsnitt \ref{resultat}. 
+
+För att testa den skrivna funktionen användes den för att bestämma ett antal rötter till funktionerna $\sin(x)$, $ (x+2) x (x-3)$, $x^2$ och $\frac{1}{x} - 1$ för olika startpunkter. Resultaten redovisas i Tabell~\ref{noggrannhet} i avsnitt \ref{resultat}. 
+
+\section{Resultat och svar} \label{resultat}
 Den färdiga implementationen utgörs av följande Matlab-funktion.
 \begin{lstlisting}
 function [root] = mysol(func, x0, x1, accuracy)
@@ -39,7 +47,7 @@ end
 \end{lstlisting}
 
 \subsection{Noggrannhet}
-För att testa den skrivna funktionen testades den för att hitta ett antal rötter till funktionerna $\sin(x)$ och $ (x+2) x (x-3)$. Resultaten redovisas i Tabell~\ref{noggrannhet}. Som tabellen visar gav alla de testade funktionerna ett resultat inom de efterfrågade feltoleranserna.
+Som tabellen visar gav alla de två första funktionerna ett resultat inom de efterfrågade feltoleranserna för samtliga startvärden. Dock gäller att metoden falerade för $f(x) = x^2$ och $\frac{1}{x} - 1$.
 \begin{table}[H]
   \begin{tabu}{ l l l l X[0.5cm] X l X }
     Funktion & $x_0$ & $x_1$ & Tolerans & Förväntat resultat & Resultat $\approx$ & Erhållet fel $\leq$ \\
@@ -49,6 +57,8 @@ För att testa den skrivna funktionen testades den för att hitta ett antal röt
     $ (x+2) x (x-3)$ & -1 & 1 & 0.1 & 0 & $2.8160 \cdot 10^{-4}$ & $10^{-3}$ \\
     $ (x+2) x (x-3)$ & 4 & 2 & 0.1 & 3 & 3 & $10^{-2}$ \\
     $ (x+2) x (x-3)$ & -10 & -5 & 0.1 & -2 & -2.0156 & $10^{-1}$ \\
+    $ x^{2}$ & -0.2 & 0.5 & 0.1 & 0 & -0.2  & $10^{0} $ \\
+    $ \frac{1}{x} - 1 $ & 0.1 & 1.5 & 0.1 & 1 & 1.55 & $10^{0}$ \\
   \end{tabu}
   \caption{Testning av noggrannhet}\label{noggrannhet}
 \end{table}
@@ -81,5 +91,8 @@ För att testa hur metoden konvergerar antecknades värdena för varje iteration
 \end{table}
 
 \section{Diskussion}
+Som väntat konvergerar sekantmetoden långsamare än Newton-Raphsons metod. Mindre väntat var att vi erhöll konvergensordningen som varandes det gyllene snittet. Möjligen anknyter detta till metodens likhet med så kallad gyllene snitt-sökning, en itrerativ metod för approximation av lokala extremvärden. 
+
+Tydligt var också att metoden var ytterst opålitlig; sekantmetoden falerar för dåligt valda startpunkter, och dubbelrötter. Detta är föga förvånande då det i dessa fall gäller att sekanten blir en dålig approximationa av funktionskurvan på det relevanta intervallet, vilket driver rotapproximationerna mot ett felaktigt värde, där ingen rot sökes (eller nödvändigtvis finns). Att begränsa startvärderna så att de nödvändigtvis måste befinna sig på skilda sidor om den sökta roten skulle kunna motverka denna effekt, men riskerar att göra att metoden konvergerar långsammare då suboptimala approximationer görs. Detta är grundtanken bakom vissa andra iterativa metoder, såsom regula falsi.
 
 \end{document}
