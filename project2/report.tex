@@ -2,6 +2,8 @@
 \usepackage[swedish]{babel}
 \usepackage{booktabs, float, listings, mathtools, tabu}
 
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+
 \title{TANA21: Implementation sekantmetoden i Matlab}
 \author{Emil Segerbäck \and Olav Övrebö}
 
@@ -62,20 +64,28 @@ Som tabellen visar gav alla de två första funktionerna ett resultat inom de ef
 \end{table}
 
 \subsection{Konvergensordning}
-För att testa hur metoden konvergerar antecknades värdena för varje iteration $1 < n \leq 8$ för värdena $f(x)=(x+2) x (x-3)$, $x_0=-2.5$, $x_1=-1.5$ i Tabell~\ref{konvergens}. Metoden antas ha en konvergensordning på formen 
+Metoden antas konvergera enligt $\abs*{x_{n-1}-\overset{*}{x}}\leq C\abs*{x_n-\overset{*}{x}}^p$ (för någon konstant $C$). Alltså att den har konvergensordning $p$. För att uppskatta p kan Ekvation~\ref{ekv:konvergens} användas som bör konvergera till värdet av q.
+
+\begin{equation}
+  p\approx\dfrac{\log\abs*{\dfrac{x_{n+1}-x_n}{x_n-x_{n-1}}}}{\log\abs*{\dfrac{x_n-x_{n-1}}{x_{n-1}-x_{n-2}}}}
+\label{ekv:konvergens}
+\end{equation}
+
+För att testa hur metoden konvergerar antecknades värdena för varje iteration $1 < n \leq 8$ för värdena $f(x)=(x+2) x (x-3)$, $x_0=-2.5$, $x_1=-1.5$ i Tabell~\ref{konvergens}. Siffrorna tyder till viss del på en konvergensordning något under $p\approx 2$.
 
 \begin{table}[H]
   \begin{tabu}{l l l l l}
-    n & $x_{n+1}-x_n$ & $x_n-x_{n-1}$ & $\log\lvert\frac{x_{n+1}-x_n}{x_{n-1}-x_{n-2}}\rvert$ & $\frac{\log\lvert\frac{x_{n+1}-x_n}{x_n-x_{n-1}}\rvert}{\log\lvert\frac{x_n-x_{n-1}}{x_{n-1}-x_{n-2}}\rvert}$\\
+    n & $x_n$ & $\abs{x_{n+1}-x_n}$ & $\log\abs*{\dfrac{x_{n+1}-x_n}{x_n-x_{n-1}}}$ & uppskattning av $p$\\
     \toprule
-    1 \\
-    2 \\
-    3 \\
-    4 \\
-    5 \\
-    6 \\
-    7 \\
-    8 \\
+    1 & -1.5    & 0.32927 \\
+    2 & -1.8293 & 0.26603     & -0.21325 & \\
+    3 & -2.0953 & 0.10717     & -0.90921 & -0.54613 \\
+    4 & -1.9881 & 0.011111    & -2.2665  & 4.4288 \\
+    5 & -1.9992 & 0.00076268  & -2.6789  & 1.1741 \\
+    6 & -2.0000 & 6.3311e-06  & -4.7914  & 1.8285 \\
+    7 & -1.9999 & 3.3516e-09  & -7.5438  & 1.5769 \\
+    8 & -1.9999 & 0           & -12.3251 & 1.6339 \\
+    9 & 2
   \end{tabu}
   \caption{Testning av konvergens}\label{konvergens}
 \end{table}
