@@ -16,7 +16,9 @@ För att finna rötter till en funktion ($x : f(x) = 0$) finns det flera metoder
 Sekantmetoden ska implementeras som en Matlab-funktion och analyseras för att avgöra dess konvergensordning.
 
 \section{Teori}
-Sekantmetoden används för att ta fram approximationer av rötter till en given funktion $f(x)$ med godtyckligt litet fel. Metoden uppnår detta genom att att approximera funktioner med en sekantlinje mellan två punkter antaget liggandes nära en faktisk rot, för att ta fram allt bättre approximationer, och sedan ånyo åberopas med denna bättre approximation, till det att felet är tillräckligt litet. Den skiljer sig således från Newton Raphsons metod, en annan vanlig itterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje itterationssteg. Då bägge metoder är itterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet.
+Sekantmetoden används för att ta fram approximationer av rötter till en given funktion $f(x)$ med godtyckligt litet fel. Metoden uppnår detta genom att att approximera funktioner med en sekantlinje mellan två punkter antaget liggandes nära en faktisk rot, för att ta fram allt bättre approximationer, och sedan upprepas med denna bättre approximation som en av de två punkterna, till det att felet är tillräckligt litet.
+
+Den skiljer sig således från Newton Raphsons metod, en annan vanlig iterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje iterationssteg. Då bägge metoder är iterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet.
 
 \section{Lösning}
 (experimentbeskrivning),
