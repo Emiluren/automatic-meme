@@ -13,12 +13,12 @@
 För att finna rötter till en funktion ($x : f(x) = 0$) finns det flera metoder man kan använda sig av. Sekantmetoden är en itterativ numerisk metod som tar fram godtyckligt bra apporximationer av rötter.
 
 \section{Uppgift}
-Sekantmetoden ska implementeras som en Matlab-funktion och analyseras för att avgöra dess konvergensordning.
+Sekantmetoden ska implementeras som en Matlabfunktion och analyseras för att avgöra dess konvergensordning. Metoden skall utvärderas med avseende på diverse skilda funktioner.
 
 \section{Teori}
-Sekantmetoden används för att ta fram approximationer av rötter till en given funktion $f(x)$ med godtyckligt litet fel. Metoden uppnår detta genom att att approximera funktioner med en sekantlinje mellan två punkter antaget liggandes nära en faktisk rot, för att ta fram allt bättre approximationer, och sedan upprepas med denna bättre approximation som en av de två punkterna, till det att felet är tillräckligt litet.
+Sekantmetoden används för att ta fram approximationer av rötter till en given funktion $f(x)$ med godtyckligt litet fel. Metoden uppnår detta genom att att approximera funktioner med en sekantlinje mellan två punkter som antas utgöra grova uppskattningar av en faktisk rot, för att ta fram allt bättre approximationer. Sedan upprepas metoden med denna bättre approximation som en av de två startpunkterna, till det att felet bedöms vara tillräckligt litet.
 
-Den skiljer sig således från Newton Raphsons metod, en annan vanlig iterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje iterationssteg. Då bägge metoder är iterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet.
+Den skiljer sig således från Newton Raphsons metod, en annan vanlig iterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje iterationssteg. Då bägge metoder är iterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet. Med andra ord väntas konvergensordningen vara något lägre än för Newton Raphsons metod (som vi från kurslitteraturen vet har konvergensordning 2).
 
 Specifikt gäller att sekantmetoden utgör en talserie givet en funktion $f$ och två startvärden $n_{0}, n_{1}$ (lämpligen placerade nära den önskade roten): 
 
@@ -29,7 +29,7 @@ Där $n_{i}$ är en allt bättre approximation för högre värden på $i$. För
 \section{Lösning}
 För att analysera sekantmetoden implementerades den rekursivt i Matlab; koden för detta redovisas under avsnitt \ref{resultat}. 
 
-För att testa den skrivna funktionen användes den för att bestämma ett antal rötter till funktionerna $\sin(x)$, $ (x+2) x (x-3)$, $x^2$ och $\frac{1}{x} - 1$ för olika startpunkter. Resultaten redovisas i Tabell~\ref{noggrannhet} i avsnitt \ref{resultat}. 
+För att testa den skrivna funktionen användes den för att uppskatta ett antal rötter till funktionerna $\sin(x)$, $ (x+2) x (x-3)$, $x^2$ och $\frac{1}{x} - 1$ för olika startpunkter. Resultaten redovisas i Tabell~\ref{noggrannhet} i avsnitt \ref{resultat}. De faktiska rötterna är kända, och används i redovisningen för att ta fram felet. 
 
 \section{Resultat och svar} \label{resultat}
 Den färdiga implementationen utgörs av följande Matlab-funktion.
@@ -81,8 +81,8 @@ För att testa hur metoden konvergerar antecknades värdena för varje iteration
 \end{table}
 
 \section{Diskussion}
-Som väntat konvergerar sekantmetoden långsamare än Newton-Raphsons metod. Mindre väntat var att vi erhöll konvergensordningen som varandes det gyllene snittet. Möjligen anknyter detta till metodens likhet med så kallad gyllene snitt-sökning, en itrerativ metod för approximation av lokala extremvärden. 
+Som väntat konvergerar sekantmetoden långsamare än Newton Raphsons metod. Dock erhölls inget entydigt resultat; vidare läsning har dock visat att konvergensordningen bör fås som det gyllene snittet ($\approx 1.6803$). Möjligen anknyter detta till metodens likhet med gyllene snitt-sökning, en iterativ metod för approximativ bestämning av lokala extremvärden. De otydliga resultaten förklaras med att förhållandevis få iterationer kan köras innan det att felet blir för små för att hantera i Matlab. Om fler iterationer kunde göras kunde konvergensordningen bestämmas tydligare.
 
-Tydligt var också att metoden var ytterst opålitlig; sekantmetoden falerar för dåligt valda startpunkter, och dubbelrötter. Detta är föga förvånande då det i dessa fall gäller att sekanten blir en dålig approximationa av funktionskurvan på det relevanta intervallet, vilket driver rotapproximationerna mot ett felaktigt värde, där ingen rot sökes (eller nödvändigtvis finns). Att begränsa startvärderna så att de nödvändigtvis måste befinna sig på skilda sidor om den sökta roten skulle kunna motverka denna effekt, men riskerar att göra att metoden konvergerar långsammare då suboptimala approximationer görs. Detta är grundtanken bakom vissa andra iterativa metoder, såsom regula falsi.
+Tydligt var också att metoden var ytterst opålitlig; sekantmetoden falerar för dåligt valda startpunkter, såväl som dubbelrötter. Detta är föga förvånande då det i dessa fall gäller att sekanten blir en dålig approximation av funktionskurvan på det relevanta intervallet, vilket driver rotapproximationerna mot ett felaktigt sökområde där ingen rot sökes (eller nödvändigtvis finns). Att begränsa startvärderna så att de nödvändigtvis måste befinna sig på skilda sidor om den sökta roten skulle kunna motverka denna effekt, men riskerar att göra att metoden konvergerar långsammare då suboptimala approximationer görs. Detta är grundtanken bakom vissa andra iterativa metoder, såsom regula falsi.
 
 \end{document}
