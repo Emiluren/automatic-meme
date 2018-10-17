@@ -30,9 +30,23 @@ Där $n_{i}$ är en allt bättre approximation för högre värden på $i$. För
 (experimentbeskrivning),
 
 \section{Resultat och svar}
+Den färdiga implementationen utgörs av följande Matlab-funktion.
+\begin{lstlisting}
+function [root] = mysol(func, x0, x1, accuracy)
+    korr = (x1 - x0) * func(x1)/(func(x1) - func(x0));
+    if abs(korr) > accuracy
+        root = mysol(func, x1, x1-korr, accuracy);
+    else
+        root = x1 - korr;
+    end
+end
+\end{lstlisting}
+
+\subsection{Noggrannhet}
 För att testa den skrivna funktionen testades den för att hitta ett antal rötter till funktionerna $\sin(x)$ och $ (x+2) x (x-3)$. Resultaten redovisas i Tabell~\ref{tester}. Som tabellen visar gav alla de testade funktionerna ett resultat inom de efterfrågade feltoleranserna.
 \begin{table}[H]
-  \begin{tabu}{ l l l l X[1cm] X l X }
+  \centering
+  \begin{tabu}{ l l l l X[0.5cm] X l X }
     Funktion & $x_0$ & $x_1$ & Tolerans & Förväntat resultat & Resultat $\approx$ & Erhållet fel $\leq$ \\
     \toprule
     $\sin(x)$ & 0.8 & 1 & 0.01 & 0 & $2.1544 \cdot 10^{-7}$ & $10^{-6}$ \\
@@ -43,6 +57,8 @@ För att testa den skrivna funktionen testades den för att hitta ett antal röt
   \end{tabu}
   \caption{ Resultat av testning av funktionen }\label{tester}
 \end{table}
+
+\subsection{Konvergensordning}
 
 \section{Diskussion}
 Som väntat konvergerar sekantmetoden långsamare än Newton-Raphsons metod. Mindre väntat var att vi erhöll konvergensordningen som varandes det gyllene snittet. Möjligen anknyter detta till metodens likhet med så kallad gyllene snitt-sökning, en itrerativ metod för approximation av lokala extremvärden. 
