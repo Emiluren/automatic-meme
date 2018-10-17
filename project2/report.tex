@@ -20,6 +20,12 @@ Sekantmetoden används för att ta fram approximationer av rötter till en given
 
 Den skiljer sig således från Newton Raphsons metod, en annan vanlig iterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje iterationssteg. Då bägge metoder är iterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet.
 
+Specifikt gäller att sekantmetoden utgör en talserie givet en funktion $f$ och två startvärden $n_{0}, n_{1}$ (lämpligen placerade nära den önskade roten): 
+
+$ n_{i} = n_{i-1} - \frac{n_{i-1} - n_{i-2}}{f(n_{i-1}) - f(n_{i-2})} \cdot f(n_{i-1}), i = 2, 3, ...$
+
+Där $n_{i}$ är en allt bättre approximation för högre värden på $i$. För implementation av metoden införs sedan ett slutvilkor att $|n_{i} - n_{i-1}| < E$, för någon övre feltolerans $E$.
+
 \section{Lösning}
 (experimentbeskrivning),
 
@@ -39,5 +45,8 @@ För att testa den skrivna funktionen testades den för att hitta ett antal röt
 \end{table}
 
 \section{Diskussion}
+Som väntat konvergerar sekantmetoden långsamare än Newton-Raphsons metod. Mindre väntat var att vi erhöll konvergensordningen som varandes det gyllene snittet. Möjligen anknyter detta till metodens likhet med så kallad gyllene snitt-sökning, en itrerativ metod för approximation av lokala extremvärden. 
+
+Tydligt var också att metoden var ytterst opålitlig; sekantmetoden falerar regelbundet för dåligt valda startpunkter, dubbelrötter, och funktioner i allmänhet där sekanten ger en dålig approximation kurvan. 
 
 \end{document}
