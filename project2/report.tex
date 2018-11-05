@@ -29,7 +29,7 @@ Sekantmetoden används för att ta fram approximationer av rötter till en given
 x_{n} = x_{n-1} - \frac{x_{n-1} - x_{n-2}}{f(x_{n-1}) - f(x_{n-2})} \cdot f(x_{n-1})
 \]
 
-där $x_{n}$ är en allt bättre approximation för högre värden på heltalet $n$. För implementation av metoden införs sedan ett slutvilkor att $|x_{n} - x_{n-1}| < E$, för någon övre feltolerans $E$.
+\noindent där $x_{n}$ är en allt bättre approximation för högre värden på heltalet $n$. För implementation av metoden införs sedan ett slutvilkor att $|x_{n} - x_{n-1}| < E$, för någon övre feltolerans $E$.
 
 Den skiljer sig således från Newton Raphsons metod, en annan vanlig iterativ approximeringsmetod, som istället använder tangentlinjer och således kräver att derivatan $f'$ är känd. Sekantmetoden undgår alltså detta krav genom att använda en sämre korrigering i varje iterationssteg. Då bägge metoder är iterativa och kan nå godtyckligt bra approximationer medför detta dock endast att sekantmetoden riskerar kräva fler iterationer för att nå ett resultat av jämförbar noggrannhet. Med andra ord väntas konvergensordningen vara något lägre än för Newton Raphsons metod (som vi från kurslitteraturen vet har konvergensordning 2).
 
@@ -75,15 +75,16 @@ Som Tabell~\ref{noggrannhet} visar gav de två första funktionerna ett resultat
 \begin{table}[H]
   \centering
   \begin{tabu}{ l l l l l l }
-    Funktion & $x_0$ & $x_1$ & Tolerans & Erhållet fel $\leq$ \\
+    Funktion & $x_0$ & $x_1$ & Tolerans & Erhållet fel \\
     \toprule
-    $\sin(x)$           & 0.8  & 1   & 0.01 & $10^{-6}$ \\
-    $\sin(x)$           & 4    & 3.8 & 0.01 & $10^{-9} $\\
-    $ (x+2) x (x-3)$    & -1   & 1   & 0.1  & $10^{-3}$ \\
-    $ (x+2) x (x-3)$    & 4    & 2   & 0.1  & $10^{-2}$ \\
-    $ (x+2) x (x-3)$    & -10  & -5 & 0.1   & $10^{-1}$ \\
-    $ x^{2}$            & -0.2 & 0.5 & 0.1  & $10^{0} $ \\
-    $ \frac{1}{x} - 1 $ & 0.1  & 1.5 & 0.1  & $10^{0}$ \\
+    $\sin(x)$          & 0.8  & 1   & $10^{-12}$ & $1.71\cdot 10^{-28}$ \\
+    $\sin(x)$          & 4    & 3.8 & $10^{-12}$ & $0$\\
+    $ (x+2) x (x-3)$   & -1   & 1   & $10^{-12}$  & $1.95\cdot 10^{-30}$ \\
+    $ (x+2) x (x-3)$   & 4    & 2   & $10^{-12}$  & $0$ \\
+    $ (x+2) x (x-3)$   & -10  & -5 & $10^{-12}$   & $0$ \\
+    $ x^{2}$           & -0.2 & 0.5 & $10^{-12}$  & $1.41\cdot 10^{-12} $ \\
+    $ x^{2}$           & 1.5 & 1.55 & $10^{-12}$  & $1.60\cdot 10^{-12} $ \\
+    $\frac{1}{x} - 1 $ & 0.1  & 1.5 & $10^{-12}$  & $0$ \\
   \end{tabu}
   \caption{Testning av noggrannhet}\label{noggrannhet}
 \end{table}
